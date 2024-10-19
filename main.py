@@ -1,5 +1,5 @@
 def count_batteries_by_health(present_capacities):
-    rated_capacity = float(input("Enter the rated capacity: "))
+    rated_capacity = 120
     health_counts = {
         "healthy": 0,
         "exchange": 0,
@@ -30,10 +30,35 @@ def test_bucketing_by_health():
     print("Counting batteries by SoH...\n")
     present_capacities = [113, 116, 80, 95, 92, 70]
     counts = count_batteries_by_health(present_capacities)
+    print()
     assert(counts["healthy"] == 2)
     assert(counts["exchange"] == 3)
     assert(counts["failed"] == 1)
-    print("Done counting :)")
+
+    # Test case (all healthy)
+    present_capacities_1 = [121, 125, 115, 130]
+    counts_1 = count_batteries_by_health(present_capacities_1)
+    print()
+    assert(counts_1["healthy"] == 4)
+    assert(counts_1["exchange"] == 0)
+    assert(counts_1["failed"] == 0)
+
+    # Test case (mixed capacities)
+    present_capacities_2 = [100, 60, 75, 90]
+    counts_2 = count_batteries_by_health(present_capacities_2)
+    print()
+    assert(counts_2["healthy"] == 1)
+    assert(counts_2["exchange"] == 2)
+    assert(counts_2["failed"] == 1)
+
+    # Test case (all failed)
+    present_capacities_3 = [60, 50, 30, 20]
+    counts_3 = count_batteries_by_health(present_capacities_3)
+    print()
+    assert(counts_3["healthy"] == 0)
+    assert(counts_3["exchange"] == 0)
+    assert(counts_3["failed"] == 4)
+    print("\nDone counting :)")
 
 
 if __name__ == '__main__':
